@@ -9,15 +9,15 @@ class State(TypedDict):
 
 
 def node_1(state):
-    print("---Node 1---")
+    print("-Node 1-")
     return {"graph_state": state["graph_state"] + " I am"}
 
 def node_2(state):
-    print("---Node 2---")
+    print("-Node 2-")
     return {"graph_state": state["graph_state"] + " happy!"}
 
 def node_3(state):
-    print("---Node 3---")
+    print("-Node 3-")
     return {"graph_state": state["graph_state"] + " sad!"}
 
 
@@ -43,12 +43,3 @@ graph = builder.compile()
 
 final_state = graph.invoke({"graph_state": "Hi, this is Afaq."})
 print(final_state)
-
-
-
-
-
-# from IPython.display import Image, display
-# display(Image(graph.get_graph().draw_mermaid_png()))
-
-
