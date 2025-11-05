@@ -1,4 +1,5 @@
 
+
 # "Cricket Batsman Performance Calculator"
 
 from langgraph.graph import StateGraph, START, END
@@ -7,7 +8,6 @@ from typing import TypedDict
 
 
 class BatsmanState(TypedDict):
-
     runs: int
     balls: int
     fours: int
@@ -21,9 +21,7 @@ class BatsmanState(TypedDict):
 
 
 def calculate_sr(state: BatsmanState):
-
     sr = (state['runs']/state['balls'])*100
-    
     return {'sr': sr}
 
 
@@ -48,13 +46,12 @@ Boundary percent - {state['boundary_percent']}
 
 
 graph = StateGraph(BatsmanState)
-
+# add nodes
 graph.add_node('calculate_sr', calculate_sr)
 graph.add_node('calculate_bpb', calculate_bpb)
 graph.add_node('calculate_boundary_percent', calculate_boundary_percent)
 graph.add_node('summary', summary)
-
-# edges
+# add edges
 graph.add_edge(START, 'calculate_sr')
 graph.add_edge(START, 'calculate_bpb')
 graph.add_edge(START, 'calculate_boundary_percent')
@@ -82,9 +79,6 @@ print("\n" + result['summary'])\
 
 
 
-
-
-
 # initial_state = {
 #     'runs': 68,
 #     'balls': 34,
@@ -92,4 +86,5 @@ print("\n" + result['summary'])\
 #     'sixes': 1
 # }
 # result = workflow.invoke(initial_state)
+
 # print(result['summary'])
