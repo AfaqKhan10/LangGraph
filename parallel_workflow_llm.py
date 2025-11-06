@@ -1,4 +1,5 @@
-# ParallelGraderPro
+
+# Parallel_Grader_Pro
 
 from langgraph.graph import StateGraph, START, END
 from langchain_groq import ChatGroq
@@ -169,13 +170,13 @@ def final_evaluation(state: UPSCState):
 
 
 graph = StateGraph(UPSCState)
-
+# add node
 graph.add_node('evaluate_language', evaluate_language)
 graph.add_node('evaluate_analysis', evaluate_analysis)
 graph.add_node('evaluate_thought', evaluate_thought)
 graph.add_node('final_evaluation', final_evaluation)
 
-# edges
+# add edges
 graph.add_edge(START, 'evaluate_language')
 graph.add_edge(START, 'evaluate_analysis')
 graph.add_edge(START, 'evaluate_thought')
@@ -218,3 +219,4 @@ intial_state = {
 
 result = workflow.invoke(intial_state)
 print(result)
+
