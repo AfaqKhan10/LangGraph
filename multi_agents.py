@@ -7,14 +7,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0)
 
 class State(TypedDict):
     query: str
     category: str
     response: str
-
 
 # Supervisor: Classifies the query
 def supervisor_agent(state: State):
@@ -73,4 +71,3 @@ def ask(question: str):
 if __name__ == "__main__":
     user_query = input("Enter your question: ")
     ask(user_query)
-
