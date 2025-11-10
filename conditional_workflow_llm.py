@@ -7,7 +7,6 @@ from typing import TypedDict, Literal
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 import os
-
 load_dotenv()
 
 groq_api_key = os.getenv("GROQ_API_KEY")
@@ -26,8 +25,6 @@ class DiagnosisSchema(BaseModel):
 
 structured_model = model.with_structured_output(SentimentSchema)
 structured_model2 = model.with_structured_output(DiagnosisSchema)
-
-
 
 
 class ReviewState(TypedDict):
@@ -50,14 +47,12 @@ def check_sentiment(state: ReviewState) -> Literal["positive_response", "run_dia
         return 'run_diagnosis'
 
 
-
 def positive_response(state: ReviewState):
     prompt = f"""Write a warm thank-you message in response to this review:
     \n\n\"{state['review']}\"\n
 Also, kindly ask the user to leave feedback on our website."""    
     response = model.invoke(prompt).content
     return {'response': response}
-
 
 
 def run_diagnosis(state: ReviewState):
@@ -68,13 +63,11 @@ Analyze this negative review and return the result **in valid JSON** strictly ma
     "tone": "angry" | "frustrated" | "disappointed" | "calm",
     "urgency": "low" | "medium" | "high"
 }}
-
 Review:
 {state['review']}
 """
     response = structured_model2.invoke(prompt)
     return {'diagnosis': response.model_dump()}
-
 
 
 def negative_response(state: ReviewState):
@@ -85,7 +78,6 @@ Write an empathetic, helpful resolution message.
 """
     response = model.invoke(prompt).content
     return {'response': response}
-
 
 
 
@@ -108,10 +100,8 @@ graph.add_edge('negative_response', END)
 workflow = graph.compile()
 
 
-
 initial_state={
     'review':'The app keeps crashing every time I try to open the dashboard.'
 }
 result = workflow.invoke(initial_state)
 print(result)
-
