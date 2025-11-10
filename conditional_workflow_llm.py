@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
+
 groq_api_key = os.getenv("GROQ_API_KEY")
 model = ChatGroq(temperature=0.1, api_key=groq_api_key, model="llama-3.1-8b-instant")
 
@@ -82,12 +83,13 @@ Write an empathetic, helpful resolution message.
 
 
 graph = StateGraph(ReviewState)
-
+# add node 
 graph.add_node('find_sentiment', find_sentiment)
 graph.add_node('positive_response', positive_response)
 graph.add_node('run_diagnosis', run_diagnosis)
 graph.add_node('negative_response', negative_response)
 
+# add edges
 graph.add_edge(START, 'find_sentiment')
 
 graph.add_conditional_edges('find_sentiment', check_sentiment)
@@ -105,3 +107,4 @@ initial_state={
 }
 result = workflow.invoke(initial_state)
 print(result)
+
